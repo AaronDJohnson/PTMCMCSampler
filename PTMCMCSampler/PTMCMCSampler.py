@@ -12,14 +12,7 @@ except ImportError:
     print("Optional mpi4py package is not installed.  MPI support is not available.")
     from . import nompi4py as MPI
 
-try:
-    import acor
-except ImportError:
-    print(
-        "Optional acor package is not installed. Acor is optionally used to calculate the "
-        "effective chain length for output in the chain file."
-    )
-    pass
+from autocorr import integrated_time, AutocorrError
 
 
 class PTSampler(object):
@@ -441,11 +434,14 @@ class PTSampler(object):
                     Neff = iter / max(
                         1,
                         np.nanmax(
-                            [acor.acor(self._AMbuffer[self.burn : (iter - 1), ii])[0] for ii in range(self.ndim)]
+                            [integrated_time(self._AMbuffer[self.burn : (iter - 1), ii])[0] for ii in range(self.ndim)]
                         ),
                     )
                     # print('\n {0} effective samples'.format(Neff))
                 except NameError:
+                    Neff = 0
+                    pass
+                except AutocorrError:
                     Neff = 0
                     pass
 
