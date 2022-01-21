@@ -438,9 +438,6 @@ class PTSampler(object):
                         ),
                     )
                     # print('\n {0} effective samples'.format(Neff))
-                except NameError:
-                    Neff = 0
-                    pass
                 except AutocorrError:
                     Neff = 0
                     pass
