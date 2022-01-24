@@ -12,7 +12,7 @@ except ImportError:
     print("Optional mpi4py package is not installed.  MPI support is not available.")
     from . import nompi4py as MPI
 
-from autocorr import integrated_time, AutocorrError
+from .autocorr import integrated_time, AutocorrError
 
 
 class PTSampler(object):
