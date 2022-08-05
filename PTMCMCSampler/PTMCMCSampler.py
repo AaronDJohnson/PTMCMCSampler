@@ -571,6 +571,7 @@ class PTSampler(object):
                 self.naccepted += 1
                 self.jumpDict[jump_name][1] += 1
 
+        self.comm.barrier()  # barrier to make sure all chains are ready to swap
         # temperature swap
         swapReturn, p0, lnlike0, lnprob0 = self.PTswap(p0, lnlike0, lnprob0, iter)
 
