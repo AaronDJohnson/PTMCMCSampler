@@ -834,7 +834,7 @@ class PTSampler(object):
         qxy = 0
 
         # choose group
-        jumpind = self.stream.integer(0, len(self.groups))
+        jumpind = self.stream.integers(0, len(self.groups))
         ndim = len(self.groups[jumpind])
 
         # adjust step size
@@ -865,7 +865,7 @@ class PTSampler(object):
         # y = np.dot(self.U.T, x[self.covinds])
 
         # make correlated componentwise adaptive jump
-        ind = np.unique(self.stream.integer(0, ndim, 1))
+        ind = np.unique(self.stream.integers(0, ndim, 1))
         neff = len(ind)
         cd = 2.4 / np.sqrt(2 * neff) * scale
 
@@ -896,7 +896,7 @@ class PTSampler(object):
         qxy = 0
 
         # choose group
-        jumpind = self.stream.integer(0, len(self.groups))
+        jumpind = self.stream.integers(0, len(self.groups))
 
         # adjust step size
         prob = self.stream.random()
@@ -954,18 +954,18 @@ class PTSampler(object):
         qxy = 0
 
         # choose group
-        jumpind = self.stream.integer(0, len(self.groups))
+        jumpind = self.stream.integers(0, len(self.groups))
         ndim = len(self.groups[jumpind])
 
         bufsize = len(self._DEbuffer)
 
-        # draw a random integer from 0 - iter
-        mm = self.stream.integer(0, bufsize)
-        nn = self.stream.integer(0, bufsize)
+        # draw a random integers from 0 - iter
+        mm = self.stream.integers(0, bufsize)
+        nn = self.stream.integers(0, bufsize)
 
         # make sure mm and nn are not the same iteration
         while mm == nn:
-            nn = self.stream.integer(0, bufsize)
+            nn = self.stream.integers(0, bufsize)
 
         # get jump scale size
         prob = self.stream.random()
@@ -1040,7 +1040,7 @@ class PTSampler(object):
         # get length of full cycle
         length = len(self.propCycle)
 
-        # get random integers
+        # get random integerss
         index = np.arange(length)
         self.stream.shuffle(index)
 
@@ -1058,7 +1058,7 @@ class PTSampler(object):
         length = len(self.propCycle)
 
         # call function
-        ind = self.stream.integer(0, length)
+        ind = self.stream.integers(0, length)
         q, qxy = self.propCycle[ind](x, iter, 1 / self.temp)
 
         # axuilary jump
